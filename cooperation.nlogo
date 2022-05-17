@@ -1,4 +1,3 @@
-
 globals [gain-list strategy-list]
 
 turtles-own [
@@ -23,7 +22,7 @@ to sprout-1-turtle [option]
   sprout 1 [
     set money 100
     set shape "square"
-    set strategy (task (choose-strategy option))
+    set strategy (choose-strategy option)
     set play-rec [ ]
   ]
 end
@@ -62,7 +61,7 @@ to play-with-partners
     let action-B [(runresult strategy A)] of B
     let gain-keyword word action-A action-B
     let reverse-gain-keyword word action-B action-A
-    let gain-pair but-first first filter [first ? = gain-keyword] gain-list
+    let gain-pair but-first first filter [ ?1 -> first ?1 = gain-keyword ] gain-list
     ask A [set money0 money0 + first gain-pair write-play-rec (list B action-B)]
     ask B [set money0 money0 + last  gain-pair write-play-rec (list A action-A)]
   ]
@@ -81,9 +80,9 @@ end
 
 to init-strategy-list
   set strategy-list (list
-    task altruism
-    task egoism
-    task tit-for-tat
+    [ ?1 -> altruism ?1 ]
+    [ ?1 -> egoism ?1 ]
+    [ ?1 -> tit-for-tat ?1 ]
   )
 end
 
@@ -100,7 +99,7 @@ end
 
 to-report tit-for-tat [opp]
   set color blue
-  let last-opp-action filter [first ? = opp] play-rec
+  let last-opp-action filter [ ?1 -> first ?1 = opp ] play-rec
   ifelse empty? last-opp-action
   [ report one-of ["C" "D"] ]
   [ report last last last last-opp-action ]
@@ -112,13 +111,13 @@ to update-label-by-money
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
-237
-33
-606
-423
-7
-7
-23.93333333333334
+267
+46
+667
+447
+-1
+-1
+26.13333333333334
 1
 10
 1
@@ -132,8 +131,8 @@ GRAPHICS-WINDOW
 7
 -7
 7
-0
-0
+1
+1
 1
 ticks
 30.0
@@ -157,69 +156,69 @@ NIL
 
 SLIDER
 41
-187
-213
-220
+156
+133
+189
 gain-DC
 gain-DC
--100
-100
-15
-1
-1
-NIL
-HORIZONTAL
-
-SLIDER
-41
-221
-213
-254
-gain-DD
-gain-DD
--100
-100
--6
-1
-1
-NIL
-HORIZONTAL
-
-SLIDER
-41
-118
-213
-151
-gain-CC
-gain-CC
--100
-100
-10
-1
-1
-NIL
-HORIZONTAL
-
-SLIDER
-41
-153
-213
-186
-gain-CD
-gain-CD
--100
-100
 -10
+10
+-1.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+136
+157
+228
+190
+gain-DD
+gain-DD
+-10
+10
+-1.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+41
+119
+133
+152
+gain-CC
+gain-CC
+-10
+10
+2.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+136
+119
+228
+152
+gain-CD
+gain-CD
+-10
+10
+3.0
 1
 1
 NIL
 HORIZONTAL
 
 PLOT
-619
-59
-819
-209
+850
+61
+1050
+211
 incomes
 NIL
 NIL
@@ -253,10 +252,10 @@ NIL
 1
 
 PLOT
-620
-210
-820
-359
+851
+212
+1051
+361
 population
 NIL
 NIL
@@ -281,7 +280,7 @@ memory-length
 memory-length
 0
 10
-5
+5.0
 1
 1
 NIL
@@ -628,9 +627,8 @@ false
 0
 Polygon -7500403 true true 270 75 225 30 30 225 75 270
 Polygon -7500403 true true 30 75 75 30 270 225 225 270
-
 @#$#@#$#@
-NetLogo 5.3.1
+NetLogo 6.2.2
 @#$#@#$#@
 @#$#@#$#@
 @#$#@#$#@
@@ -646,7 +644,6 @@ true
 0
 Line -7500403 true 150 150 90 180
 Line -7500403 true 150 150 210 180
-
 @#$#@#$#@
 0
 @#$#@#$#@
