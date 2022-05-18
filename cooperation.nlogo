@@ -34,6 +34,7 @@ end
 
 
 to go
+  ;; if ticks >= 300 [ stop ]
   ask patches with [not any? turtles-here][sprout-1-turtle "random"]
   ask turtles [
     set money0 0
@@ -41,7 +42,7 @@ to go
   ]
   ask turtles [ play-with-partners ]
   ask turtles [ set money money + money0 if money <= 0 [die]]
-  ask turtles [ change-strategy ]
+  ;; ask turtles [ change-strategy ]
   update-label-by-money
   tick
 end
@@ -88,12 +89,12 @@ end
 
 
 to-report altruism [opp]
-  set color green
+  set color pink
   report "C"
 end
 
 to-report egoism [opp]
-  set color red
+  set color black
   report "D"
 end
 
@@ -111,15 +112,15 @@ to update-label-by-money
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
-267
-46
-667
-447
+252
+20
+846
+615
 -1
 -1
-26.13333333333334
+39.1
 1
-10
+12
 1
 1
 1
@@ -140,7 +141,7 @@ ticks
 BUTTON
 43
 21
-109
+135
 54
 NIL
 setup
@@ -163,7 +164,7 @@ gain-DC
 gain-DC
 -10
 10
--1.0
+5.0
 1
 1
 NIL
@@ -178,7 +179,7 @@ gain-DD
 gain-DD
 -10
 10
--1.0
+-7.0
 1
 1
 NIL
@@ -208,18 +209,18 @@ gain-CD
 gain-CD
 -10
 10
-3.0
+-5.0
 1
 1
 NIL
 HORIZONTAL
 
 PLOT
-850
-61
-1050
-211
-incomes
+877
+14
+1492
+339
+Total money
 NIL
 NIL
 0.0
@@ -230,14 +231,14 @@ true
 false
 "" ""
 PENS
-"egoism" 1.0 0 -2674135 true "" "plot sum [money0] of turtles with [color = red]"
-"altruism" 1.0 0 -13840069 true "" "plot sum [money0] of turtles with [color = green]"
-"Tic-for-Tac" 1.0 0 -13345367 true "" "plot sum [money0] of turtles with [color = blue]"
+"egoism" 1.0 0 -16777216 true "" "plot sum [money] of turtles with [color = black]"
+"altruism" 1.0 0 -2064490 true "" "plot sum [money] of turtles with [color = pink]"
+"Tic-for-Tac" 1.0 0 -13345367 true "" "plot sum [money] of turtles with [color = blue]"
 
 BUTTON
-113
+140
 21
-176
+230
 54
 NIL
 go
@@ -252,10 +253,10 @@ NIL
 1
 
 PLOT
-851
-212
-1051
-361
+876
+341
+1495
+714
 population
 NIL
 NIL
@@ -267,20 +268,20 @@ true
 false
 "" ""
 PENS
-"D" 1.0 0 -2674135 true "" "plot count turtles with [color = red]"
-"C" 1.0 0 -13840069 true "" "plot count turtles with [color = green]"
+"D" 1.0 0 -16777216 true "" "plot count turtles with [color = black]"
+"C" 1.0 0 -2064490 true "" "plot count turtles with [color = pink]"
 "tft" 1.0 0 -13345367 true "" "plot count turtles with [color = blue]"
 
 SLIDER
 42
 63
-214
+229
 96
 memory-length
 memory-length
 0
 10
-5.0
+1.0
 1
 1
 NIL
